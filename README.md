@@ -1,9 +1,22 @@
 # Frontend Developer Task
 
-## Demo on firebase
+## Feedback
 
-https://hostinger-demo.firebaseapp.com/
+### Cons
 
-## Run app on computer
+- HTML'as parašytas netvarkingas
+- tag'ai naudojami ne pagal paskirtį
+- rašant HTML pažeidžiama semantika
+- div'ai sunestinami per giliai
+- css netvarkingas
+- nėra vientisumo klasių pavadinimuose
+- stiliai uždedami ant ID, vietoj klasių
 
-npm run start
+### Pros
+
+- naudojo Reactą ir gan neblogai
+- SCSS naudojo spalvas ir fontus kaip kintamuosius
+
+### Verdict
+
+- svetainės vaizdas nėra geras, responsive neišbaigtas.
