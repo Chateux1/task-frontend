@@ -1,5 +1,5 @@
-const path = require("path");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
+const path = require("path");
 
 module.exports = {
   entry: "./src/index.js",
@@ -7,6 +7,7 @@ module.exports = {
     path: path.join(__dirname, "/dist"),
     filename: "index_bundle.js"
   },
+  mode: "development",
   stats: {
     errorDetails: true
   },
@@ -29,7 +30,8 @@ module.exports = {
             options: {
               modules: true,
               sourceMap: true,
-              importLoaders: 1
+              importLoaders: 1,
+              localIdentName: "[sha1:hash:hex:4]"
             }
           },
           "sass-loader"
