@@ -1,36 +1,55 @@
-import React from "react";
-import styles from "../../styles/components/header.scss";
+import React, { Component } from "react";
+import Icon from "../icon";
+import ListItem from "../list-item";
+import ListItemMarked from "../list-item-marked";
 
-const Header = () => (
-  <header className="page-header">
-    <div className="container">
-      <div className={styles.nav_container}>
-        <nav>
-          <input
-            type="checkbox"
-            id="nav-toggle"
-            className={styles.nav_toggle}
-          />
-          <label htmlFor="nav-toggle" className={styles.burger_menu}>
-            <i className="fas fa-bars" />
-          </label>
-          <a className={styles.logo}>
-            <img src="../../assets/logo.png" alt="logo" />
-          </a>
-          <div className={styles.menu}>
-            <a>Web Hosting</a>
-            <a className={styles.menu__tagged}>
-              <span>Cloud Hosting</span>
-              <span className={styles.menu__tagged_tag}>on sale</span>
-            </a>
-            <a>VPS Hosting</a>
-            <a>Domain Checker</a>
-            <a>Website Builder</a>
-          </div>
+class Header extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      nav_class: ""
+    };
+  }
+
+  setToggleTopMenuClass = () => {
+    if (this.state.nav_class === "") {
+      this.setState({ nav_class: "toggled" });
+    } else {
+      this.setState({ nav_class: "" });
+    }
+  };
+
+  render() {
+    let nav_class_list = `nav ${this.state.nav_class}`;
+    return (
+      <header className="header">
+        <Icon class="header__logo" type="img" src="../../assets/logo.png" />
+
+        <Icon
+          class="nav__icon"
+          type="i"
+          src="fas fa-bars"
+          onClick={this.setToggleTopMenuClass}
+        />
+
+        <nav className={nav_class_list}>
+          <ul className="nav__menu">
+            <ListItem text="web hosting" class="nav__menu-item" />
+            <ListItemMarked
+              classContainer="nav__menu-item--marked"
+              classText="nav__menu-item--text"
+              classMark="nav__menu-item--mark"
+              text="cloud hosting"
+              mark="on sale"
+            />
+            <ListItem text="vps hosting" class="nav__menu-item" />
+            <ListItem text="domain checker" class="nav__menu-item" />
+            <ListItem text="website builder" class="nav__menu-item" />
+          </ul>
         </nav>
-      </div>
-    </div>
-  </header>
-);
+      </header>
+    );
+  }
+}
 
 export default Header;

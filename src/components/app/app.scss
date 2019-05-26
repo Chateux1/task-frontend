@@ -7,16 +7,16 @@
     transform: scaleX(-1);
   }
 
-  .page-container {
-    background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
-      url("../../../assets/background.jpg");
+  html {
+    background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
+      url("../../../assets/background.jpg") no-repeat center center;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
     background-size: cover;
-    background-position: center;
-
-    @include flip-horizontal();
+    @include flip-horizontal;
   }
-
-  .page-wrapper {
-    @include flip-horizontal();
+  .page-container {
+    @include flip-horizontal;
   }
 }

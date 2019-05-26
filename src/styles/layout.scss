@@ -1,173 +1,170 @@
 :global {
+  /* ---------- Global layout settings ---------- */
   html,
   body {
-    margin: 0 auto;
-    height: 100%;
+    margin: 0;
+    min-height: 100%;
   }
 
   .page-container {
-    width: 100%;
-    height: 100%;
-  }
-
-  .page-wrapper {
     margin: 0 auto;
-    width: 70%;
-    height: 100%;
-    max-width: 1200px;
-
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    grid-template-rows: 1fr minmax(400px, auto) 1fr;
-    justify-items: center;
+    width: 80%;
+    max-width: 2000px;
   }
 
-  .page-header {
-    grid-column-start: 1;
-    grid-column-end: 3;
-    grid-row: 1;
-    align-self: start;
-
-    .header-container {
-      display: grid;
-      grid-template-columns: auto 1fr;
-      grid-template-rows: 1fr;
-      align-items: center;
-
-      .header-logo {
-        grid-column: 1;
-        grid-row: 1;
-        justify-self: start;
-      }
-
-      .header-nav {
-        grid-column: 2;
-        grid-row: 1;
-        justify-self: end;
-      }
+  /* ---------- Define mixins for each breakpoint ---------- */
+  @mixin small {
+    @media (max-width: 600px) {
+      @content;
     }
   }
 
-  .page-main {
-    grid-column: 1;
-    grid-row: 2;
+  @mixin medium {
+    @media (min-width: 600px) {
+      @content;
+    }
   }
 
-  .page-aside {
-    grid-column: 2;
-    grid-row: 2;
+  @mixin large {
+    @media (min-width: 1200px) {
+      @content;
+    }
   }
 
-  .page-footer {
-    grid-column-start: 1;
-    grid-column-end: 3;
-    grid-row: 3;
-    align-self: end;
+  @mixin huge {
+    @media (min-width: 1400px) {
+      @content;
+    }
   }
 
-  @media only screen and (min-width: 1400px) {
+  /* ---------- Define font sizes for each breakpoint ---------- */
+  @include small {
     html {
-      font-size: 18px;
+      font-size: 12px;
     }
   }
 
-  @media only screen and (max-width: 1400px) {
+  @include medium {
+    html {
+      font-size: 14px;
+    }
+  }
+
+  @include large {
     html {
       font-size: 16px;
     }
   }
 
-  @media only screen and (min-width: 1200px) {
-    .header-nav__list {
-      align-self: center;
+  @include huge {
+    html {
+      font-size: 18px;
     }
   }
 
-  @media only screen and (max-width: 1200px) {
-    .header-nav {
-      position: relative;
+  /* ---------- Header layout ---------- */
+  .header {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    grid-template-rows: 1fr;
+    align-items: center;
+    justify-items: end;
+
+    .header__logo {
+      grid-column: 1;
     }
 
-    .nav_toggle:checked ~ {
-      & .header-nav__list {
-        background: rgba(16, 18, 30, 0.8);
+    @mixin hamburger-menu {
+      .nav__icon {
+        display: block;
+      }
 
-        display: grid;
-        grid-column-start: 1;
-        grid-column-end: 3;
-        grid-row: 2;
-        justify-self: end;
+      .nav__menu {
+        display: none;
+      }
+      .nav.toggled {
+        & .nav__menu {
+          background: rgba(0, 0, 0, 0.5);
 
-        position: absolute;
-
-        a {
-          width: 12rem;
-          text-align: right;
+          position: absolute;
+          left: 0;
+          right: 0;
+          top: $height__header;
         }
       }
 
-      & .burger_menu {
-        background: rgba(16, 18, 30, 0.8);
+      .nav.toggled *:not(.header__logo):not(.nav__icon) {
+        display: block;
+        margin: 0;
       }
     }
 
-    .burger_menu {
-      padding: 0.5rem;
+    @include small {
+      @include hamburger-menu;
+    }
 
-      grid-column: 2;
-      grid-row: 1;
-      justify-self: end;
+    @include medium {
+      @include hamburger-menu;
+    }
+
+    @include large {
+      @include hamburger-menu;
+    }
+
+    @include huge {
+      .nav__icon {
+        grid-column: 2;
+        display: none;
+      }
+
+      .nav {
+        grid-column: 2;
+
+        &__menu {
+          display: block;
+          &-item--marked {
+            position: relative;
+          }
+
+          &-item--mark {
+            position: absolute;
+            top: -0.9rem;
+            left: 0.5rem;
+          }
+        }
+      }
+    }
+  }
+
+  /* ---------- Footer layout ---------- */
+  .footer {
+    @include small {
       display: flex;
-      align-items: center;
+      flex-direction: column;
+      justify-content: center;
     }
 
-    .header-nav__list {
-      display: none;
-    }
+    @include medium {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      grid-template-rows: 1fr 1fr;
 
-    .header-nav__marked-mark {
-      display: none;
-    }
-  }
+      $menuItems: "menuItem1", "menuItem2", "menuItem3", "menuItem4";
+      $columnIndexes: 1 1 2 2;
+      $rowIndexes: 1 2 1 2;
 
-  @media only screen and (max-width: 900px) {
-    html {
-      font-size: 12px;
-
-      .page-wrapper {
-        display: grid;
-        grid-template-columns: 1fr;
-        grid-template-rows: 1fr 1fr 1fr 1fr;
-      }
-
-      .page-header {
-        grid-column: 1;
-        grid-row: 1;
-      }
-
-      .page-main {
-        grid-column: 1;
-        grid-row: 2;
-      }
-
-      .page-aside {
-        grid-column: 1;
-        grid-row: 3;
-      }
-      .page-footer {
-        grid-column: 1;
-        grid-row: 4;
+      @for $i from 1 to length($menuItems) + 1 {
+        .#{nth($menuItems, $i)} {
+          grid-column: #{nth($columnIndexes, $i)};
+          grid-row: #{nth($rowIndexes, $i)};
+        }
       }
     }
-  }
 
-  @media only screen and (max-width: 600px) {
-    html {
-      font-size: 10px;
-    }
-
-    .container__content_body {
-      font-size: 8px;
+    @include large {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-around;
     }
   }
 }
