@@ -3,6 +3,8 @@ import React, { Component, useState, useEffect } from "react";
 
 import Header from "../header";
 import Footer from "../footer";
+import Offer from "../offer";
+import Price from "../price";
 
 import bgHD from "../../../assets/bg-hd.jpg";
 import bgExtraLarge from "../../../assets/bg-extra-large.jpg";
@@ -15,9 +17,7 @@ import "./app.scss";
 import "../../index.scss";
 
 const App = () => {
-  const [windowWidth, setWindowWidth] = useState(window.innerWidth);
   let imageUrl = bgMobile;
-
   switch (true) {
     case window.innerWidth >= 2000:
       imageUrl = bgHD;
@@ -38,6 +38,8 @@ const App = () => {
       imageUrl = bgMobile;
       break;
   }
+
+  const [windowWidth, setWindowWidth] = useState(window.innerWidth);
 
   const handleWindowResize = () => {
     setWindowWidth(window.innerWidth);
@@ -60,6 +62,10 @@ const App = () => {
     >
       <div className="page-wrapper">
         <Header />
+        <main className="main">
+          <Offer />
+          <Price />
+        </main>
         <Footer />
       </div>
     </div>

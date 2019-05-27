@@ -1,25 +1,50 @@
 :global {
-  /* ---------- Global layout settings ---------- */
-  html,
-  body {
+  /* -------------------- Global layout settings -------------------- */
+
+  * {
+    box-sizing: border-box;
+    padding: 0;
     margin: 0;
-    height: 100%;
   }
 
-  .page-container {
+  html {
     height: 100%;
+    width: 100%;
+
+    body {
+      height: 100%;
+      width: 100%;
+
+      .page-container {
+        min-height: 100%;
+
+        .page-wrapper {
+          margin: 0 auto;
+          width: 80%;
+          max-width: 2000px;
+
+          .header {
+            width: 100%;
+          }
+
+          .footer {
+            width: 100%;
+          }
+        }
+      }
+    }
   }
 
-  .page-wrapper {
-    height: 100%;
-    margin: 0 auto;
-    width: 80%;
-    max-width: 2000px;
+  /* -------------------- Define mixins for each breakpoint -------------------- */
+
+  @mixin mobile {
+    @media (max-width: 300px) {
+      @content;
+    }
   }
 
-  /* ---------- Define mixins for each breakpoint ---------- */
   @mixin small {
-    @media (max-width: 600px) {
+    @media (min-width: 300px) {
       @content;
     }
   }
@@ -37,15 +62,22 @@
   }
 
   @mixin huge {
-    @media (min-width: 1400px) {
+    @media (min-width: 1500px) {
       @content;
     }
   }
 
-  /* ---------- Define font sizes for each breakpoint ---------- */
+  /* -------------------- Define font sizes for each breakpoint -------------------- */
+
+  @include mobile {
+    html {
+      font-size: 2.5vw;
+    }
+  }
+
   @include small {
     html {
-      font-size: 12px;
+      font-size: 3vw;
     }
   }
 
@@ -67,30 +99,73 @@
     }
   }
 
-  /* ---------- Header layout ---------- */
+  /* -------------------- App layout -------------------- */
+
+  .page-container {
+    .page-wrapper {
+      display: grid;
+      grid-template-columns: 1fr;
+      grid-template-rows: 1fr auto 1fr;
+      justify-items: center;
+      align-items: center;
+      width: 100vw;
+      height: 100vh;
+
+      .header {
+        grid-row: 1;
+        justify-self: start;
+        align-self: start;
+      }
+
+      main {
+        grid-row: 2;
+        display: grid;
+        justify-items: center;
+        align-items: center;
+        grid-row-gap: 2rem;
+      }
+
+      .footer {
+        grid-row: 3;
+        align-self: end;
+      }
+    }
+  }
+
+  /* -------------------- Header layout -------------------- */
+
   .header {
     display: grid;
     grid-template-columns: auto 1fr;
     grid-template-rows: 1fr;
     align-items: center;
     justify-items: end;
+    height: $height__header;
+    transition: height 1s;
 
     .header__logo {
       grid-column: 1;
+      justify-self: center;
+      display: grid;
+      justify-items: center;
+
+      img {
+        height: $height__header-logo;
+      }
     }
 
     @mixin hamburger-menu {
       .nav__icon {
-        display: block;
+        display: grid;
+        justify-items: center;
       }
 
       .nav__menu {
         display: none;
       }
       .nav.toggled {
-        & .nav__menu {
-          background: rgba(0, 0, 0, 0.5);
-
+        .nav__menu {
+          background-color: rgba(0, 0, 0, 0.5);
           position: absolute;
           left: 0;
           right: 0;
@@ -102,6 +177,10 @@
         display: block;
         margin: 0;
       }
+    }
+
+    @include mobile {
+      @include hamburger-menu;
     }
 
     @include small {
@@ -117,6 +196,14 @@
     }
 
     @include huge {
+      height: $height__header--huge;
+
+      .header__logo {
+        img {
+          height: $height__header-logo--huge;
+        }
+      }
+
       .nav__icon {
         grid-column: 2;
         display: none;
@@ -140,9 +227,143 @@
       }
     }
   }
+  /* -------------------- Main layout -------------------- */
 
-  /* ---------- Footer layout ---------- */
+  .main {
+    /* -------------------- Offer layout -------------------- */
+
+    @mixin default-main {
+      html {
+        // font-size: ;
+      }
+      .offer {
+        .button-getstarted {
+          height: 50px;
+          width: 250px;
+        }
+      }
+    }
+
+    @mixin button-mobile {
+      .offer {
+        .button-getstarted {
+          height: 35px;
+          width: 150px;
+        }
+      }
+    }
+
+    @mixin main-one-row {
+      grid-template-columns: 2;
+      grid-template-rows: 1;
+
+      .offer {
+        grid-column: 1;
+        grid-row: 1;
+      }
+
+      .price {
+        grid-column: 2;
+        grid-row: 1;
+      }
+    }
+
+    @mixin main-one-column {
+      grid-template-columns: 1;
+      grid-template-rows: 2;
+
+      .offer {
+        grid-row: 1;
+      }
+
+      .price {
+        grid-row: 2;
+      }
+    }
+
+    .offer {
+      .button__getstarted {
+        height: 50px;
+        width: 250px;
+      }
+    }
+
+    @include mobile {
+      @include default-main;
+      @include main-one-column;
+      @include button-mobile;
+    }
+
+    @include small {
+      @include default-main;
+      @include main-one-column;
+      @include button-mobile;
+    }
+
+    @include medium {
+      @include default-main;
+      @include main-one-column;
+    }
+
+    @include large {
+      @include default-main;
+      @include main-one-column;
+    }
+
+    @include huge {
+      @include default-main;
+      @include main-one-row;
+    }
+
+    /* -------------------- Price layout -------------------- */
+
+    .price {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      grid-template-rows: repeat(2, 1fr);
+
+      &__dialog {
+        grid-column-start: 2;
+        grid-row-start: 1;
+        align-self: start;
+        justify-self: center;
+      }
+
+      &__dollar {
+        grid-column-start: 2;
+        grid-column-end: 2;
+        grid-row-start: 1;
+        grid-row-end: 3;
+        justify-self: center;
+      }
+
+      &__cents {
+        grid-column-start: 3;
+        grid-row-start: 1;
+        align-self: end;
+      }
+
+      &__month {
+        grid-column-start: 3;
+        grid-row-start: 2;
+      }
+
+      &__currency {
+        grid-column-start: 1;
+        grid-row-start: 1;
+        justify-self: end;
+        align-self: end;
+      }
+    }
+    /* -------------------- Main layout end -------------------- */
+  }
+  /* -------------------- Footer layout -------------------- */
   .footer {
+    @include mobile {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
     @include small {
       display: flex;
       flex-direction: column;

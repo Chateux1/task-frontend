@@ -1,14 +1,4 @@
 :global {
-  .header {
-    height: $height__header;
-    padding: auto;
-  }
-  .header__logo {
-    img {
-      height: $font-size__header-logo;
-    }
-  }
-
   .nav__menu {
     text-transform: uppercase;
     margin: 0;

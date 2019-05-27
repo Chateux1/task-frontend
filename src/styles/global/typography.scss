@@ -1,4 +1,8 @@
 :global {
+  html {
+    transition: font-size 1s;
+  }
+
   body {
     font-family: $font-family__body;
     color: $color__text-body;
@@ -29,7 +33,7 @@
     }
   }
 
-  #button__getstarted {
+  .button-getstarted {
     text-transform: uppercase;
     background-color: $color__red;
     color: $color__white;
@@ -43,7 +47,7 @@
     color: $color__tick;
   }
 
-  #arrow-box {
+  .arrow-box {
     background: $color__light-red;
     font-size: $font-size__dialog;
 
@@ -52,7 +56,7 @@
     }
   }
 
-  #price {
+  .price {
     &__dollar {
       font-size: $font-size__price-dollar;
     }

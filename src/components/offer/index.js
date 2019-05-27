@@ -40,36 +40,36 @@ class Offer extends React.Component {
 
   render() {
     return (
-      <section>
+      <section className="offer">
         <h1>
           <span>New Year Offer</span>
           <br />
           <span className="highlight">82% OFF </span>
           <span>Web Hosting</span>
         </h1>
-        <div className={styles.countdown}>
+        <div className="countdown">
           <div className="countdown__icons">
             <i className="fas fa-caret-right" />
           </div>
-          <div className={styles.countdown__text}>
+          <div className="countdown__text">
             <div className="countdown__text-numbers">
               {this.leading0(this.state.days)}
             </div>
             <div className="countdown__text-words">days</div>
           </div>
-          <div className={styles.countdown__text}>
+          <div className="countdown__text">
             <div className="countdown__text-numbers">
               {this.leading0(this.state.hours)}
             </div>
             <div className="countdown__text-words">hours</div>
           </div>
-          <div className={styles.countdown__text}>
+          <div className="countdown__text">
             <div className="countdown__text-numbers">
               {this.leading0(this.state.minutes)}
             </div>
             <div className="countdown__text-words">minutes</div>
           </div>
-          <div className={styles.countdown__text}>
+          <div className="countdown__text">
             <div className="countdown__text-numbers">
               {this.leading0(this.state.seconds)}
             </div>
@@ -79,9 +79,7 @@ class Offer extends React.Component {
             <i className="fas fa-caret-left" />
           </div>
         </div>
-        <button className={styles.button__getstarted} id="button__getstarted">
-          get started now
-        </button>
+        <button className="button-getstarted">get started now</button>
       </section>
     );
   }
